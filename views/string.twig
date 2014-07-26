@@ -1,0 +1,27 @@
+<form action="{{ string.path }}" method="post">
+    
+    <div class="purge-g">
+        <div class="pure-u-11-24">
+            {{ string.msgid }}
+        </div>
+        <div class="pure-u-2-24"></div>
+        <div class="pure-u-11-24">
+            {% for key, value in string.msgstr %}
+                <div class="{% if string.msgstr.length > 1 %}has-plurals{% endif %} block-{{ key }}">
+                    <textarea name="msgstr[]" autofocus>{{ value }}</textarea>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if string.saved %}
+        <div class="spacer message message-green alert center">
+            Changes saved!
+        </div>
+    {% else %}
+        <div class="spacer right">
+            <button class="button-warning pure-button">Update this translation</button>
+        </div>
+    {% endif %}
+
+</form>
