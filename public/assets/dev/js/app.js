@@ -1,11 +1,13 @@
-(function (w, undefined) {
+define(function () {
 	'use strict';
 	
     var strings = $('#strings');
     var toolbar = $('#toolbar');
     var editor  = toolbar.find('#editor');
-    var active  = null;
 
+    var App = {
+        active: null
+    };
 
     function bindEvents (ctx) {
         ctx = ctx || document.body;
@@ -37,7 +39,7 @@
         $('.active').removeClass('active')
         dom.addClass('active');
 
-        active = dom;
+        App.active = dom;
     }
 
 
@@ -86,61 +88,8 @@
         }
     };
 
-
-    // ---- keys shortcuts
-    function keyUp (e) {
-        var prev, slug;
-
-        e.preventDefault();
-
-        if (!active) {
-            slug = $('ul#strings li:last');
-        } else {
-            if (prev = active.prev('li')) {
-                slug = prev.attr('id');
-            } else {
-                // restart the list
-                slug = $('ul#strings li:last');
-            }
-        }
-
-        location.hash = slug;
-    };
-
-    function keyDown (e) {
-        var next, slug;
-
-        e.preventDefault();
-
-        if (!active) {
-            slug = $('ul#strings li:first');
-        } else {
-            if (next = active.next('li')) {
-                slug = next.attr('id');
-            } else {
-                // restart the list
-                slug = $('ul#strings li:first');
-            }
-        }
-
-        location.hash = slug;
-    };
-
-
-    function keyHandler (e) {
-        if (e.keyCode == 40) {
-            keyDown(e);
-        }
-
-        if (e.keyCode == 38) {
-            keyUp(e);
-        }
-    };
-
-
     // detect hash changes
     window.onhashchange = pickFromHash;
-
 
     // first loading
     pickFromHash();
@@ -148,10 +97,13 @@
     // strings click
     strings.on('click', 'li', function (e) {
         e.preventDefault();
-
         location.hash = $(this).attr('id');
     })
 
-    $(document).on('keydown', keyHandler);
-
-}(window))
+    // keys based on this selector
+    require(['keys'], function (Keys) {
+        Keys.init('ul#strings li');
+    });
+   
+    return App;
+});
