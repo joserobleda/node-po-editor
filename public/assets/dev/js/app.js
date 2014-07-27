@@ -89,7 +89,9 @@ define(function () {
        */
     function pick (dom) {
         var slug    = dom.attr('id');
-        var URL     = location.href.replace('#', '/');
+        var a       = document.createElement('a');
+        a.href      = location.href;
+        var URL     = a.pathname + '/' + location.hash.replace('#', '');
 
         // change layout
         setAsActive(dom);

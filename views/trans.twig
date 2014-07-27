@@ -16,21 +16,33 @@
         <script src="/assets/dev/js/vendor/wysihtml5-0.3.0.js"></script>
     </head>
     <body>
-        <ul id="strings" class="layout centered">
-            {% for string in trans.strings %}
-                <li id="{{ string.slug }}">
-                    <div href="#{{ string.slug }}" class="pure-g link">
-                        <div class="pure-u-11-24">
-                            {{ string.msgid }}
+        {% if trans.strings.length %}
+            <ul id="strings" class="layout centered">
+                {% for string in trans.strings %}
+                    <li id="{{ string.slug }}">
+                        <div href="#{{ string.slug }}" class="pure-g link">
+                            <div class="pure-u-11-24">
+                                {{ string.msgid }}
+                            </div>
+                            <div class="pure-u-2-24"></div>
+                            <div class="pure-u-11-24">
+                                {{ string.msgstr.0 }}
+                            </div>
                         </div>
-                        <div class="pure-u-2-24"></div>
-                        <div class="pure-u-11-24">
-                            {{ string.msgstr.0 }}
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="layout empty centered center">
+                <div class="message message-green">
+                    Congrats! You have all the strings translated!
+                </div>
+                <br />
+                <br />
+
+                <a href="?all=true">View all</a>
+            </div>
+        {% endif %}
 
         <div id="toolbar" style="display:none">
             <div id="editor" class="layout centered">

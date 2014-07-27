@@ -86,7 +86,7 @@
             item.msgstr = strings;
         },
 
-        toArray: function () {
+        toArray: function (opts) {
             if (this.po == null) {
                 return [];
             }
@@ -98,6 +98,18 @@
                 'project':      this.po.headers['Project-Id-Version'],
                 'strings':      this.po.items
             };
+
+            if (opts && opts.filter) {
+                var strings = [];
+                for (var i in model.strings) {
+                    if (opts.filter(model.strings[i])) {
+
+                        strings.push(model.strings[i]);
+                    }
+                }
+
+                model.strings = strings;
+            }
 
             return model;
         }

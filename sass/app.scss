@@ -19,6 +19,14 @@ ul {
     padding: 0
 }
 
+.empty {
+    padding-top: 2em;
+
+    .message {
+        padding: 1em
+    }
+}
+
 .centered {
     margin: 0 auto
 }

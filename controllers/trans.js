@@ -27,12 +27,24 @@
 			});
 			
 			trans.load(function (err) {
+				var filter;
+
 				if (err) {
 					return 'Error: ' + err;
 				}
 
+				if (req.query.all) {
+					filter = null;
+				} else {
+					filter = function (item) {
+						return item.msgstr[0].length === 0;
+					};
+				}
+
 				res.render('trans.twig', {
-					'trans': trans.toArray()
+					'trans': trans.toArray({
+						filter: filter
+					})
 				});
 			});
 		},
