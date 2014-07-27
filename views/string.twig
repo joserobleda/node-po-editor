@@ -1,16 +1,31 @@
 <form action="{{ string.path }}" method="post">
     
     <div class="purge-g">
-        <div class="pure-u-11-24">
-            {{ string.msgid }}
+        <div class="pure-u-7-24">
+            <div class="msgid">
+                {{ string.msgid }}
+            </div>
+            {% if string.msgid_plural %}
+                <div class="msgid plural">
+                    {{ string.msgid_plural }}
+                </div>
+            {% endif %}
+
+            {% if string.extractedComments.length %}
+                <hr />
+
+                <div class="msgnotes message message-orange">
+                    {{ string.extractedComments }}
+                </div>
+            {% endif %}
         </div>
-        <div class="pure-u-2-24"></div>
-        <div class="pure-u-11-24">
+        <div class="pure-u-1-24"></div>
+        <div class="pure-u-16-24">
             <div id="editor-tools" style="display: none;">
                 {% spaceless %}
                 <a data-wysihtml5-command="bold" title="CTRL+B">bold</a>
                 <a data-wysihtml5-command="italic" title="CTRL+I">italic</a>
-                <a data-wysihtml5-action="change_view">html/text</a>
+                <a data-wysihtml5-action="change_view" class="right">html/text</a>
                 {% endspaceless %}
             </div>
 
