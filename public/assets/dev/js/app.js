@@ -44,16 +44,24 @@ define(function () {
     function bindEvents (ctx) {
         ctx = ctx || document.body;
 
-        $(ctx).find('form').submit(function (e) {
+        $(ctx).find('form.save').submit(function (e) {
             e.preventDefault();
 
             var form = $(this);
+            var data = form.serializeArray();
 
-            $.post(this.action, form.serialize(), function (res) {
+            // update row
+            $(App.active).find('div:last').html(data[0].value);
+
+            $.post(this.action, data, function (res) {
                 form.replaceWith(res);
 
                 // re-bind events
                 bindEvents(editor);
+
+                setTimeout(function () {
+                    location.hash = $(App.active).next('li').attr('id');
+                }, 300);
             });
         });
 
