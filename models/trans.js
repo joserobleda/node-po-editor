@@ -130,7 +130,7 @@
       * path in our project
       *
       */
-    Trans.root  = '/Users/joseignacio/Sites/dokify/src/locale'
+    Trans.root  = app.config.locales.path;
 
 
     /**

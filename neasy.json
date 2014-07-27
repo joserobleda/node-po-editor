@@ -1,9 +1,12 @@
 {
-  "cookie": {
-    "secret": "153ef589a5538b49fcd3f76b1bd922c179345a5c"
-  },
-  "server": {
-    "domain": "localhost",
-    "port": 5000
-  }
+    "cookie": {
+        "secret": "153ef589a5538b49fcd3f76b1bd922c179345a5c"
+    },
+    "server": {
+        "domain": "localhost",
+        "port": 5000
+    },
+    "locales": {
+        "path": "/Users/joseignacio/Sites/dokify/src/locale"
+    }
 }
