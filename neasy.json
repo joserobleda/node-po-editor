@@ -5,8 +5,5 @@
   "server": {
     "domain": "localhost",
     "port": 5000
-  },
-  "database": {
-    "name": "node-po-editor"
   }
 }
