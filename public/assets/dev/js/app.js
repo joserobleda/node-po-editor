@@ -1,12 +1,44 @@
 define(function () {
 	'use strict';
 	
+    // if some lib require jquery, make sure is from the same source we had in our html
+    require.config({
+        paths: {
+            jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min'
+        }
+    });
+
     var strings = $('#strings');
     var toolbar = $('#toolbar');
     var editor  = toolbar.find('#editor');
 
     var App = {
         active: null
+    };
+
+    var wysiHtml5ParserRules = {
+        tags: {
+            strong: {},
+            b:      {},
+            i:      {},
+            em:     {},
+            br:     {},
+            p:      {},
+            div:    {},
+            span:   {},
+            ul:     {},
+            ol:     {},
+            li:     {},
+            a:      {
+                set_attributes: {
+                    target: "_blank",
+                    rel:    "nofollow"
+                },
+                check_attributes: {
+                    href:   "url" // important to avoid XSS
+                }
+            }
+        }
     };
 
     function bindEvents (ctx) {
@@ -24,6 +56,13 @@ define(function () {
                 bindEvents(editor);
             });
         });
+
+        $(ctx).find('textarea').each(function () {
+            var editor = new wysihtml5.Editor(this, {
+                toolbar:      "editor-tools",
+                parserRules:  wysiHtml5ParserRules
+            });
+        })
 
         // async autofocus
         $(ctx).find('[autofocus]').focus();

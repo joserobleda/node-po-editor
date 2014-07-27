@@ -6,6 +6,14 @@
         </div>
         <div class="pure-u-2-24"></div>
         <div class="pure-u-11-24">
+            <div id="editor-tools" style="display: none;">
+                {% spaceless %}
+                <a data-wysihtml5-command="bold" title="CTRL+B">bold</a>
+                <a data-wysihtml5-command="italic" title="CTRL+I">italic</a>
+                <a data-wysihtml5-action="change_view">html/text</a>
+                {% endspaceless %}
+            </div>
+
             {% for key, value in string.msgstr %}
                 <div class="{% if string.msgstr.length > 1 %}has-plurals{% endif %} block-{{ key }}">
                     <textarea name="msgstr[]" autofocus>{{ value }}</textarea>
