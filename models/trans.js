@@ -4,6 +4,8 @@
     var PO      = require('pofile');
     var slugs   = require("slugs");
     var fs      = require("fs");
+    var exec    = require('child_process').exec;
+
 
 	var Trans = Model.extend({
 
@@ -34,6 +36,31 @@
             return false;
         },
 
+        parse: function (cb) {
+            var paths, find, xgettext, params, command;
+
+            paths   = this.constructor.xgettext.sources.join(' ');
+            find    = 'find ' + paths + ' -iname "*.php"';
+
+            params  = [];
+            params.push('--sort-output');
+            params.push('--omit-header');
+            params.push('--add-comments=notes');
+            params.push('--no-location');
+            params.push('--language=PHP');
+            params.push('--force-po');
+            params.push('--from-code=UTF-8');
+            params.push('-j ' + this.get('path'));
+            params.push('-o ' + this.get('path'));
+            xgettext = 'xgettext ' + params.join(' ');
+
+            command = find + ' | xargs ' + xgettext;
+
+            exec(command, function (err, stdout, stderr) {
+                console.log(command, err);
+                cb(err);
+            });
+        },
 
         load: function (cb) {
             var self, path, slug;
@@ -97,6 +124,7 @@
                 'last_editor':  this.po.headers['Last-Translator'],
                 'language':     this.po.headers['Language'],
                 'project':      this.po.headers['Project-Id-Version'],
+                'file':         this.get('file'),
                 'strings':      this.po.items
             };
 
@@ -132,6 +160,13 @@
       *
       */
     Trans.root  = app.config.locales.path;
+
+
+    /**
+      * String sources
+      *
+      */
+    Trans.xgettext  = app.config.xgettext;
 
 
     /**

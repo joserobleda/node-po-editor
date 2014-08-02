@@ -7,6 +7,13 @@
         "port": 5000
     },
     "locales": {
-        "path": "/home/jose/www/dokify/src/locale"
+        "path": "/Users/joseignacio/Sites/dokify/src/locale"
+    },
+    "xgettext": {
+        "sources": [
+            "/tmp/cache",
+            "/Users/joseignacio/Sites/dokify/src",
+            "/Users/joseignacio/Sites/dokify/public/class"
+            ]
     }
 }

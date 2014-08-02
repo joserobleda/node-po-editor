@@ -145,5 +145,23 @@
 					});
 				});
 			});
+		},
+
+
+		/***
+		   * Parse a file
+		   *
+		   *
+		   *
+		   */
+		parse: function (req, res, next) {
+			var trans = new Trans({
+				lang: req.params.lang,
+				file: req.params.file
+			});
+
+			trans.parse(function () {
+				return res.redirect('/' + req.params.lang + '/' + req.params.file);
+			});
 		}
 	};

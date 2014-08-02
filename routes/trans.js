@@ -11,6 +11,9 @@
     // show a strings list
     app.get('/:lang/:file', Trans.show);
 
+    // parse files
+    app.get('/:lang/:file/parse', Trans.parse);
+
     // edit and update a string
     app.get('/:lang/:file/:slug', Trans.edit);
     app.post('/:lang/:file/:slug', Trans.update);
