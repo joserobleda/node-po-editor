@@ -2,7 +2,7 @@
 	var app		= require('neasy');
 	var Model 	= require('neasy/model');
     var PO      = require('pofile');
-    var slugs   = require("slugs")
+    var slugs   = require("slugs");
 
 	var Trans = Model.extend({
 
