@@ -25,7 +25,7 @@
 		   */
 		files: function (req, res, next) {
 			var files = Trans.getFiles(req.params.lang);
-console.log(files);
+
 			if (files.length === 0) {
 				return res.redirect('/');
 			}
