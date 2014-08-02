@@ -46,10 +46,10 @@
 		   */
 		show: function (req, res, next) {
 			var trans = new Trans({
-				lang: req.params.lang, 
+				lang: req.params.lang,
 				file: req.params.file
 			});
-			
+
 			trans.load(function (err) {
 				var filter;
 
@@ -84,7 +84,7 @@
 			var trans, slug, string;
 
 			trans = new Trans({
-				lang: req.params.lang, 
+				lang: req.params.lang,
 				file: req.params.file
 			});
 
@@ -116,7 +116,7 @@
 			var trans, slug, string;
 
 			trans = new Trans({
-				lang: req.params.lang, 
+				lang: req.params.lang,
 				file: req.params.file
 			});
 
