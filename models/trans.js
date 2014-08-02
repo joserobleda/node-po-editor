@@ -57,7 +57,6 @@
             command = find + ' | xargs ' + xgettext;
 
             exec(command, function (err, stdout, stderr) {
-                console.log(command, err);
                 cb(err);
             });
         },
@@ -105,10 +104,27 @@
                     return cb.call(self, err);
                 }
 
-                return cb.call(self);
+                self.compile(function () {
+                    if (err) {
+                        return cb.call(self, err);
+                    }
+
+                    return cb.call(self);
+                })
             });
         },
 
+        compile: function (cb) {
+            var input, output, command;
+
+            input   = this.get('path');
+            output  = input.replace('.po', '.mo');
+            command = 'msgfmt -v -o '+ output +' ' + input;
+
+            exec(command, function (err, stdout, stderr) {
+                cb(err);
+            });
+        },
 
         updateString: function (item, strings) {
             item.msgstr = strings;
