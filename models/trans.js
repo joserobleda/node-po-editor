@@ -3,6 +3,7 @@
 	var Model 	= require('neasy/model');
     var PO      = require('pofile');
     var slugs   = require("slugs");
+    var fs      = require("fs");
 
 	var Trans = Model.extend({
 
@@ -139,6 +140,48 @@
       *
       */
     Trans.class = 'trans';
+
+
+    /**
+      * read all the languages
+      *
+      */
+    Trans.getLanguages = function () {
+        var folders, languages;
+
+        folders     = fs.readdirSync(Trans.root).sort();
+        languages   = [];
+
+        folders.forEach(function (folder) {
+            var language = folder.substring(0, folder.indexOf('.'));
+
+            languages.push(language);
+        })
+
+        return languages;
+    }
+
+
+    /**
+      * read all the languages
+      *
+      */
+    Trans.getFiles = function (lang) {
+        var diskFiles, files = [];
+
+        diskFiles = fs.readdirSync(Trans.root + '/' + lang + '.utf8').sort();
+
+        diskFiles.forEach(function (file, i) {
+            if (file[0] === '.') {
+                return;
+            }
+
+            file = file.replace('LC_', '').toLowerCase();
+            files.push(file);
+        });
+
+        return files;
+    }
 
 
 	module.exports = Trans;

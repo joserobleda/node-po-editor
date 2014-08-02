@@ -6,13 +6,21 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Your app title!</title>
+        <title>Node PO Translator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="description" content="Your app description" />
         <link rel="stylesheet" href="/assets/dev/css/app.css" />
     </head>
     <body>
-        <h1 style="text-align:center">This is views/index.twig</h1>
+        <h1 style="text-align:center">Node PO Translator</h1>
+
+        <ul class="center">
+        {% for lang in languages %}
+            <li>
+                <a href="/{{ lang }}">{{ lang }}</a>
+            </li>
+        {% endfor %}
+        </ul>
 
         <script data-main="/assets/dev/js/app.js" src="/assets/dev/js/vendor/require.js"></script>
     </body>

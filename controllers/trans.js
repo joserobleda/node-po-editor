@@ -1,5 +1,6 @@
 
-	var Trans = require('../models/trans');
+	var Trans 		= require('../models/trans');
+	var languages 	= Trans.getLanguages();
 
 	module.exports = {
 
@@ -10,9 +11,32 @@
 		   *
 		   */
 		index: function (req, res, next) {
-			res.render('index.twig');
+			res.render('index.twig', {
+				languages: languages
+			});
 		},
 
+
+		/***
+		   * Show all files inside a language or redirect if there is only one
+		   *
+		   *
+		   *
+		   */
+		files: function (req, res, next) {
+			var files = Trans.getFiles(req.params.lang);
+console.log(files);
+			if (files.length === 0) {
+				return res.redirect('/');
+			}
+
+			if (files.length === 1) {
+				return res.redirect('/' + req.params.lang + '/' + files[0]);
+			}
+
+			// TO DO
+			return res.end('to-do: list all files');
+		},
 
 		/***
 		   * Show the current user
