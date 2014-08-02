@@ -135,7 +135,7 @@
 
     /**
       * not used in this project, but required for neasy
-      * 
+      *
       *
       */
     Trans.class = 'trans';
