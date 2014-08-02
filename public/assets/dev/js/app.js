@@ -60,7 +60,10 @@ define(function () {
                 bindEvents(editor);
 
                 setTimeout(function () {
-                    location.hash = $(App.active).next('li').attr('id');
+                    var next = $(App.active).next('li');
+                    if (next.length) {
+                        location.hash = $(App.active).next('li').attr('id');
+                    }
                 }, 300);
             });
         });
@@ -142,6 +145,14 @@ define(function () {
 
     // first loading
     pickFromHash();
+
+    if (location.hash == '') {
+        var first = $("ul#strings li:first");
+
+        if (first.length) {
+            location.hash = first.attr('id');
+        }
+    }
 
     // strings click
     strings.on('click', 'li', function (e) {
