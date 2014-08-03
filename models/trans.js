@@ -5,6 +5,7 @@
     var slugs   = require("slugs");
     var fs      = require("fs");
     var exec    = require('child_process').exec;
+    var pullRequest = require('../lib/pullrequest');
 
 
 	var Trans = Model.extend({
@@ -234,5 +235,58 @@
         return files;
     }
 
+
+    Trans.createPullRequest = function (cb) {
+        var repo, branch, github;
+
+        // must be enabled
+        if (app.config.github == undefined) {
+            cb();
+            return false;
+        }
+
+        var pull = new pullRequest({
+            path: app.config.github.path,
+            branch: 'test-branch',
+            commit: 'Updating translations',
+            author: app.config.github.user
+        });
+
+        return;
+
+        repo    = git(app.config.github.path);
+
+        repo.create_branch(branch, function () {
+            repo.checkout(branch, function () {
+
+                repo.commit('Updating translations', { all: true, author: app.config.github.user }, function () {
+                    console.log(arguments);
+                });
+            })
+        });
+
+        github = new GitHubApi({
+            version: "3.0.0",
+            debug: app.config.github.debug || false
+        });
+
+        github.authenticate({
+            type: "oauth",
+            token: app.config.github.token
+        });
+
+        // github.pullRequests.create({
+        //     user: app.config.github.user,
+        //     repo: app.config.github.repo,
+        //     title: app.config.github.pullRequest || 'Translation issues',
+        //     body: "Updating the traslation files",
+        //     base: 'master',
+        //     head: branch
+        // }, function(err, res) {
+        //     if (err) {
+        //         return cb(err);
+        //     }
+        // });
+    };
 
 	module.exports = Trans;

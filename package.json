@@ -6,7 +6,9 @@
   "dependencies": {
     "neasy": "^0.0.15",
     "pofile": "^0.2.12",
-    "slugs": "^0.1.2"
+    "slugs": "^0.1.2",
+    "github": "~0.2.1",
+    "gift": "~0.4.2"
   },
   "devDependencies": {},
   "scripts": {

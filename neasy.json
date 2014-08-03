@@ -15,5 +15,12 @@
             "/Users/joseignacio/Sites/dokify/src",
             "/Users/joseignacio/Sites/dokify/public/class"
             ]
+    },
+    "github": {
+        "path": "/Users/joseignacio/Sites/node-po-editor",
+        "token": "93307332395bc02aa7380e4e9abcef8e0b6a8d94",
+        "user": "joserobleda",
+        "repo": "node-po-editor",
+        "author": "Translators translators@dokify.net"
     }
 }
