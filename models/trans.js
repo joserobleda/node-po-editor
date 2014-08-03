@@ -245,7 +245,7 @@
             return false;
         }
 
-        date   = (new Date()).toISOString().substring(0, 19);
+        date   = (new Date()).toISOString().substring(0, 19).replace(/\:/g, '-');
         branch = (app.config.github.branch || 'trans') + '-' + date;
 
         pull = new pullRequest({
