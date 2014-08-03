@@ -12,7 +12,7 @@
     app.get('/:lang/:file', Trans.show);
 
     // parse files
-    app.get('/:lang/:file/parse', Trans.parse);
+    app.get('/:lang/:file/reload', Trans.reload);
 
     // edit and update a string
     app.get('/:lang/:file/:slug', Trans.edit);

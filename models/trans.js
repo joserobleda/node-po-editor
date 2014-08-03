@@ -5,6 +5,7 @@
     var slugs   = require("slugs");
     var fs      = require("fs");
     var exec    = require('child_process').exec;
+    var git     = require('gift');
     var pullRequest = require('../lib/pullrequest');
 
 
@@ -235,7 +236,26 @@
         return files;
     }
 
+    /**
+      * sync repo with origin
+      *
+      */
+    Trans.sync = function (cb) {
+        if (app.config.github === undefined) {
+            return cb();
+        }
 
+        var repo = git(app.config.github.path);
+        repo.sync(function (err) {
+            cb(err);
+        });
+    }
+
+
+    /**
+      * submit current changes
+      *
+      */
     Trans.createPullRequest = function (cb) {
         var branch, date, pull;
 

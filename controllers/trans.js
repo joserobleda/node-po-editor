@@ -158,14 +158,25 @@
 		   *
 		   *
 		   */
-		parse: function (req, res, next) {
+		reload: function (req, res, next) {
 			var trans = new Trans({
 				lang: req.params.lang,
 				file: req.params.file
 			});
 
-			trans.parse(function () {
-				return res.redirect('/' + req.params.lang + '/' + req.params.file);
+			function parse () {
+				trans.parse(function () {
+					return res.redirect('/' + req.params.lang + '/' + req.params.file);
+				});
+			};
+
+			Trans.sync(function (err) {
+				if (err) {
+					console.log('sync: ', err);
+					return res.end(err);
+				}
+
+				parse();
 			});
 		}
 	};
