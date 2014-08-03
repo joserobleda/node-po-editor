@@ -1,26 +1,40 @@
 {
     "cookie": {
-        "secret": "153ef589a5538b49fcd3f76b1bd922c179345a5c"
+        "secret": "a-cookie-secret"
     },
     "server": {
         "domain": "localhost",
         "port": 5000
     },
     "locales": {
-        "path": "/Users/joseignacio/Sites/dokify/src/locale"
+        "path": "path/to/locale/root/locale"
+    },
+    "mysql": {
+        "host": "localhost",
+        "user": "root",
+        "password": "secret"
+    },
+    "httpAuth": {
+        "type": "mysql",
+        "mysql": {
+            "table": "users.table",
+            "username": "username.field",
+            "password": "password.field",
+            "encoding": "mysql.function.like.md5"
+        }
     },
     "xgettext": {
         "sources": [
             "/tmp/cache",
-            "/Users/joseignacio/Sites/dokify/src",
-            "/Users/joseignacio/Sites/dokify/public/class"
-            ]
+            "/src",
+            "/public/class"
+        ]
     },
     "github": {
-        "path": "/Users/joseignacio/Sites/node-po-editor",
-        "token": "93307332395bc02aa7380e4e9abcef8e0b6a8d94",
-        "user": "joserobleda",
-        "repo": "node-po-editor",
+        "path": "/path/to/repo",
+        "token": "your-github-token",
+        "user": "the-github-username",
+        "repo": "the-github-repo-name",
         "branch": "trans",
         "commit": "Updating translations"
     }
