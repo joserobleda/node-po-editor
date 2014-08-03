@@ -6,6 +6,9 @@
 	app.get('/', Trans.index);
 
     // show the list of files to translate
+    app.get('/commit', Trans.commit);
+
+    // show the list of files to translate
     app.get('/:lang', Trans.files);
 
     // show a strings list

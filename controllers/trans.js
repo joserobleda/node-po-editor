@@ -21,6 +21,23 @@
 
 
 		/***
+		   * Show the current user
+		   *
+		   *
+		   *
+		   */
+		commit: function (req, res, next) {
+			Trans.getStatus(function (err, status) {
+				if (status.clean == true) {
+					return res.redirect('/');
+				}
+
+				console.log('creating a pull request with the changes');
+				return res.redirect('/');
+			})
+		},
+
+		/***
 		   * Show all files inside a language or redirect if there is only one
 		   *
 		   *
