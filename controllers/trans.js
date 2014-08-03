@@ -11,9 +11,12 @@
 		   *
 		   */
 		index: function (req, res, next) {
-			res.render('index.twig', {
-				languages: languages
-			});
+			Trans.getStatus(function (err, status) {
+				res.render('index.twig', {
+					languages: languages,
+					status: status
+				});
+			})
 		},
 
 

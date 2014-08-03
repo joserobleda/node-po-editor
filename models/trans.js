@@ -240,6 +240,24 @@
       * sync repo with origin
       *
       */
+    Trans.getStatus = function (cb) {
+        if (app.config.github === undefined) {
+            return cb(null, {
+                clean: true
+            });
+        }
+
+        var repo = git(app.config.github.path);
+        repo.status(function (err, status) {
+            cb(err, status);
+        });
+    }
+
+
+    /**
+      * sync repo with origin
+      *
+      */
     Trans.sync = function (cb) {
         if (app.config.github === undefined) {
             return cb();
