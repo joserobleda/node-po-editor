@@ -32,8 +32,13 @@
 					return res.redirect('/');
 				}
 
-				console.log('creating a pull request with the changes');
-				return res.redirect('/');
+				Trans.createPullRequest(function (err) {
+					if (err) {
+						return res.end(err);
+					}
+
+					return res.redirect('/');
+				})
 			})
 		},
 
