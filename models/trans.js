@@ -237,7 +237,7 @@
 
 
     Trans.createPullRequest = function (cb) {
-        var repo, branch, github;
+        var branch, date, pull;
 
         // must be enabled
         if (app.config.github == undefined) {
@@ -245,14 +245,19 @@
             return false;
         }
 
-        var pull = new pullRequest({
+        date   = (new Date()).toISOString().substring(0, 19);
+        branch = (app.config.github.branch || 'trans') + '-' + date;
+
+        pull = new pullRequest({
             token: app.config.github.token,
             path: app.config.github.path,
             repo: app.config.github.repo,
-            branch: 'test-branch',
-            commit: 'Updating translations',
+            branch: branch,
+            commit: app.config.github.commit || 'Updating translations',
             author: app.config.github.user
         }, cb);
+
+        return pull;
     };
 
 	module.exports = Trans;
