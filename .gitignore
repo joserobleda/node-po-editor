@@ -27,3 +27,5 @@ node_modules
 *.sublime-workspace
 
 sublime/node-po-editor.sublime-project
+
+local-neasy.json
