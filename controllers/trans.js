@@ -27,19 +27,20 @@
 		   *
 		   */
 		commit: function (req, res, next) {
+
 			Trans.getStatus(function (err, status) {
 				if (status.clean == true) {
 					return res.redirect('/');
 				}
 
-				Trans.createPullRequest(function (err) {
+				Trans.createPullRequest(req.user, function (err) {
 					if (err) {
 						return res.end(err);
 					}
 
 					return res.redirect('/');
 				})
-			})
+			});
 		},
 
 		/***

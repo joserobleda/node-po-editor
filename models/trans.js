@@ -274,8 +274,8 @@
       * submit current changes
       *
       */
-    Trans.createPullRequest = function (cb) {
-        var branch, date, pull;
+    Trans.createPullRequest = function (username, cb) {
+        var branch, message, date, pull;
 
         // must be enabled
         if (app.config.github == undefined) {
@@ -283,10 +283,18 @@
             return false;
         }
 
-        date   = (new Date()).toISOString().substring(0, 19).replace(/\:/g, '-');
-        branch = (app.config.github.branch || 'trans') + '-' + date;
+        date    = (new Date()).toISOString().substring(0, 19).replace(/\:/g, '-');
+        branch  = (app.config.github.branch || 'trans') + '-' + date;
+        message = (app.config.github.commit || 'updating translations');
+        title   = "translations";
+
+        if (username) {
+            message = username + " " + message;
+            title += " by " + username;
+        }
 
         pull = new pullRequest({
+            title: title,
             token: app.config.github.token,
             path: app.config.github.path,
             repo: app.config.github.repo,
