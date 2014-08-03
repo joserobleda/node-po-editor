@@ -11,7 +11,9 @@
 		   *
 		   */
 		index: function (req, res, next) {
-			Trans.createPullRequest();
+			Trans.createPullRequest(function () {
+				console.log('pull request created');
+			});
 
 			res.render('index.twig', {
 				languages: languages
