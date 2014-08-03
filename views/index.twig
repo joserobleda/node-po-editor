@@ -9,6 +9,7 @@
         <title>Node PO Translator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="description" content="Your app description" />
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
         <link rel="stylesheet" href="/assets/dev/css/app.css" />
     </head>
     <body>
@@ -25,7 +26,9 @@
         {% if not status.clean %}
             <br />
             <div class="center">
-                There are uncommited changes. <a href="/commit">Commit now</a>
+                There are uncommited changes 
+                <br />
+                <a class="button-success pure-button " href="/commit">Commit now</a>
             </div>
         {% endif %}
 
