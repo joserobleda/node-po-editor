@@ -1,10 +1,10 @@
 {
   "name": "node-po-editor",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A web based node written po file editor with HTML support",
   "main": "app.js",
   "dependencies": {
-    "neasy": "^0.0.15",
+    "neasy": "^0.0.17",
     "pofile": "^0.2.12",
     "slugs": "^0.1.2",
     "github": "~0.2.1",
