@@ -106,8 +106,23 @@
                     self.po.items[i].path = path + '/' + slug;
                 }
 
+                // assuming this means the file is empty, fill with a basic .po headers
+                if (self.isEmpty()) {
+                    var headers = self.constructor.getTemplate(self.get('lang'));
+
+                    fs.writeFileSync(self.get('path'), headers);
+
+                    // retry load
+                    return self.load(cb);
+                }
+
                 return cb.call(self);
             });
+        },
+
+
+        isEmpty: function () {
+            return this.po.headers.Language == '' && this.po.headers['Content-Type'] == '';
         },
 
 
@@ -154,10 +169,7 @@
             }
 
             var model = {
-                'updated':      this.po.headers['PO-Revision-Date'],
-                'last_editor':  this.po.headers['Last-Translator'],
-                'language':     this.po.headers['Language'],
-                'project':      this.po.headers['Project-Id-Version'],
+                'language':     this.get('lang'),
                 'file':         this.get('file'),
                 'strings':      this.po.items
             };
@@ -321,5 +333,22 @@
 
         return pull;
     };
+
+
+    /**
+      * a base template for new .po files
+      *
+      */
+    Trans.getTemplate = function (lang) {
+        var template = '';
+        template += 'msgid ""\n';
+        template += 'msgstr ""\n';
+        template += '"Language: ' + lang + '\\n"\n';
+        template += '"MIME-Version: 1.0\\n"\n';
+        template += '"Content-Type: text/plain; charset=UTF-8\\n"\n';
+        template += '"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\\n"\n';
+
+        return template;
+    }
 
 	module.exports = Trans;
