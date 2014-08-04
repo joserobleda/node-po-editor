@@ -10,10 +10,10 @@ if (process.argv[2] !== undefined) {
 process.chdir(__dirname);
 
 // test config file
-var fs 		= require('fs');
-var app 	= require('neasy');
-var cli 	= app.require('cli');
-var home 	= process.env.HOME;
+var fs = require('fs'),
+	app = require('neasy'),
+	cli	= app.require('cli'),
+	home = process.env.HOME;
 
 
 
