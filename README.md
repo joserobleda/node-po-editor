@@ -11,6 +11,7 @@ A web app for edit .po files with github integration, writed in node
 
 Config file, see `neasy-sample.json`
 
+
 ````
 {
     // session handling
@@ -32,5 +33,17 @@ Config file, see `neasy-sample.json`
 
     // if you want to enable the github integration
     "github": {}
+}
+````
+
+
+
+#### cookie
+````
+{
+    "cookie": {
+        // put here a secret random number, it is for session handling
+        "secret": "super secret key"
+    }
 }
 ````
