@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+// make sure we are in this folder to exec the app
+process.chdir(__dirname);
+
 var fs 	= require('fs');
 var app = require('neasy');
 var cli = app.require('cli');
