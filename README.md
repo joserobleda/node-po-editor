@@ -62,7 +62,7 @@ Config file, see `neasy-sample.json`
 }
 ````
 
-#### server
+#### xgettext
 ````
 {
     "xgettext": {
@@ -75,6 +75,32 @@ Config file, see `neasy-sample.json`
             "/src",
             "/class"
         ]
+    }
+}
+````
+
+
+#### httpAuth
+````
+{
+    "httpAuth": {
+        // mysql auth type (only mysql for now)
+        "type": "mysql",
+        
+        // mysql config
+        "mysql": {
+            // the table of users your going to use, db.tablename
+            "table": "users.table",
+            
+            // the username field in the mysql table
+            "username": "username.field",
+            
+            // the password field in the mysql table
+            "password": "password.field",
+            
+            // method to compare the password
+            "encoding": "mysql.function.like.md5"
+        }
     }
 }
 ````
