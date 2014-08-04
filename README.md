@@ -134,8 +134,11 @@ Use this to enable github integration
         // your github token
         "token": "your-github-token",
         
-        // the owner user of the repo
+        // the author of the commits
         "user": "the-github-username",
+        
+        // the owner of the repo
+        "owner": "user-or-org",
         
         // the repo name
         "repo": "the-github-repo-name",
