@@ -39,28 +39,44 @@
         },
 
         parse: function (cb) {
-            var paths, find, xgettext, params, command;
+            var self = this;
 
-            paths   = this.constructor.xgettext.sources.join(' ');
-            find    = 'find ' + paths + ' -iname "*.php"';
+            function parse () {
+                var paths, find, xgettext, params, command;
 
-            params  = [];
-            params.push('--sort-output');
-            params.push('--omit-header');
-            params.push('--add-comments=notes');
-            params.push('--no-location');
-            params.push('--language=PHP');
-            params.push('--force-po');
-            params.push('--from-code=UTF-8');
-            params.push('-j ' + this.get('path'));
-            params.push('-o ' + this.get('path'));
-            xgettext = 'xgettext ' + params.join(' ');
+                paths   = self.constructor.xgettext.sources.join(' ');
+                find    = 'find ' + paths + ' -iname "*.php"';
 
-            command = find + ' | xargs ' + xgettext;
+                params  = [];
+                params.push('--sort-output');
+                params.push('--omit-header');
+                params.push('--add-comments=notes');
+                params.push('--no-location');
+                params.push('--language=PHP');
+                params.push('--force-po');
+                params.push('--from-code=UTF-8');
+                params.push('-j ' + self.get('path'));
+                params.push('-o ' + self.get('path'));
+                xgettext = 'xgettext ' + params.join(' ');
 
-            exec(command, function (err, stdout, stderr) {
-                cb(err);
-            });
+                command = find + ' | xargs ' + xgettext;
+
+                exec(command, function (err, stdout, stderr) {
+                    cb(err);
+                });
+            }
+
+            if (self.constructor.xgettext.pre) {
+                exec(self.constructor.xgettext.pre, function (err, stdout, stderr) {
+                    if (err) {
+                        return console.error(err);
+                    }
+
+                    parse();
+                });
+            } else {
+                parse();
+            }
         },
 
         load: function (cb) {

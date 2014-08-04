@@ -35,4 +35,8 @@ for (var i in app.config.xgettext.sources) {
 	app.config.xgettext.sources[i] = app.config.xgettext.sources[i].replace('~', home);
 }
 
+if (app.config.xgettext.pre !== undefined) {
+	app.config.xgettext.pre = app.config.xgettext.pre.replace('~', home);
+}
+
 app.start();
