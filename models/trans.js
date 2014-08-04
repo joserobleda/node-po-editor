@@ -325,6 +325,7 @@
             title: title,
             token: app.config.github.token,
             path: app.config.github.path,
+            owner: app.config.github.owner,
             repo: app.config.github.repo,
             branch: branch,
             commit: app.config.github.commit || 'Updating translations',
