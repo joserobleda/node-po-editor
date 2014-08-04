@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs 	= require('fs');
 var app = require('neasy');
 var cli = app.require('cli');
