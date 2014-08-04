@@ -5,11 +5,9 @@ A web app for edit .po files with github integration, writed in node
 
 ### How to install:
 1. Make sure you are running node `v0.10.29`
-2. Clone the repo
-3. npm install
-4. Copy `neasy-sample.json` to a secure local path `/secure/path/to/config.json`
-5. Config your parameters in `/secure/path/to/config.json`
-5. Run `node app /secure/path/to/config.json`
+2. Run `npm install -g node-po-editor`
+4. Config your parameters in `/secure/path/to/config.json`
+5. Run `po-editor /secure/path/to/config.json`
 
 
 Config file, see `neasy-sample.json`
