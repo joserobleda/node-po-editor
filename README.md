@@ -87,7 +87,7 @@ Config file, see `neasy-sample.json`
         // mysql auth type (only mysql for now)
         "type": "mysql",
         
-        // mysql config
+        // mysql config (needs you to configure "mysql", see below)
         "mysql": {
             // the table of users your going to use, db.tablename
             "table": "users.table",
@@ -101,6 +101,50 @@ Config file, see `neasy-sample.json`
             // method to compare the password
             "encoding": "mysql.function.like.md5"
         }
+    }
+}
+````
+
+#### mysql
+````
+{
+    "mysql": {
+        // your mysql host
+        "host": "localhost",
+        
+        // mysql user 
+        "user": "root",
+        
+        // mysql password
+        "password": "secret"
+    }
+}
+````
+
+#### github
+
+Use this to enable github integration
+
+````
+{
+    "github": {
+        // a local path to your repo
+        "path": "/path/to/repo",
+        
+        // your github token
+        "token": "your-github-token",
+        
+        // the owner user of the repo
+        "user": "the-github-username",
+        
+        // the repo name
+        "repo": "the-github-repo-name",
+        
+        // temporary branches prefix
+        "branch": "trans",
+        
+        // commit message
+        "commit": "Updating translations"
     }
 }
 ````
