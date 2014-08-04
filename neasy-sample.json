@@ -6,9 +6,6 @@
         "domain": "localhost",
         "port": 5000
     },
-    "locales": {
-        "path": "path/to/locale/root/locale"
-    },
     "mysql": {
         "host": "localhost",
         "user": "root",
@@ -24,6 +21,7 @@
         }
     },
     "xgettext": {
+        "path": "path/to/locale/root/locale",
         "sources": [
             "/tmp/cache",
             "/src",

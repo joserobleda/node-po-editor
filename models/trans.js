@@ -177,7 +177,7 @@
       * path in our project
       *
       */
-    Trans.root  = app.config.locales.path;
+    Trans.root  = app.config.xgettext.path;
 
 
     /**
