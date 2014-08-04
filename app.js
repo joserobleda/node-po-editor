@@ -10,20 +10,20 @@ if (process.argv[2] !== undefined) {
 process.chdir(__dirname);
 
 // test config file
-var fs 	= require('fs');
-var app = require('neasy');
-var cli = app.require('cli');
-var home = process.env.HOME;
+var fs 		= require('fs');
+var app 	= require('neasy');
+var cli 	= app.require('cli');
+var home 	= process.env.HOME;
 
 
 
-if (app.config.xgettext == undefined || app.config.xgettext.path == undefined) {
+if (app.config.xgettext === undefined || app.config.xgettext.path === undefined) {
 	return cli.error("Configure the xgettext:path in your config.json file!");
 }
 
 // replace ~ in case user wants relative path
 app.config.xgettext.path = app.config.xgettext.path.replace('~', home);
-if (fs.existsSync(app.config.xgettext.path) == false) {
+if (fs.existsSync(app.config.xgettext.path) === false) {
 	return cli.error("The xgettext:path in your config.json file doesn't exists");
 }
 
