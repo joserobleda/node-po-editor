@@ -148,3 +148,6 @@ Use this to enable github integration
     }
 }
 ````
+
+
+5. Run `node app /secure/path/to/config.json`
