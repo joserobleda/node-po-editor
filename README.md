@@ -19,10 +19,7 @@ Config file, see `neasy-sample.json`
     // server info
     "server": {},
     
-    // locales config
-    "locales": {},
-    
-    // xgettext config
+    // xgettext locales config
     "xgettext": {},
     
     // --- optional config
