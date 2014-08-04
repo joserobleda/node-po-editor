@@ -154,10 +154,7 @@
             }
 
             var model = {
-                'updated':      this.po.headers['PO-Revision-Date'],
-                'last_editor':  this.po.headers['Last-Translator'],
-                'language':     this.po.headers['Language'],
-                'project':      this.po.headers['Project-Id-Version'],
+                'language':     this.get('lang'),
                 'file':         this.get('file'),
                 'strings':      this.po.items
             };
