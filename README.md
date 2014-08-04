@@ -13,44 +13,27 @@ Config file, see `neasy-sample.json`
 
 ````
 {
-    "cookie": {
-        "secret": "a-cookie-secret"
-    },
-    "server": {
-        "domain": "localhost",
-        "port": 5000
-    },
-    "locales": {
-        "path": "path/to/locale/root/locale"
-    },
-    "mysql": {
-        "host": "localhost",
-        "user": "root",
-        "password": "secret"
-    },
-    "httpAuth": {
-        "type": "mysql",
-        "mysql": {
-            "table": "users.table",
-            "username": "username.field",
-            "password": "password.field",
-            "encoding": "mysql.function.like.md5"
-        }
-    },
-    "xgettext": {
-        "sources": [
-            "/tmp/cache",
-            "/src",
-            "/public/class"
-        ]
-    },
-    "github": {
-        "path": "/path/to/repo",
-        "token": "your-github-token",
-        "user": "the-github-username",
-        "repo": "the-github-repo-name",
-        "branch": "trans",
-        "commit": "Updating translations"
-    }
+    // session handling
+    "cookie": {},
+    
+    // server info
+    "server": {},
+    
+    // locales config
+    "locales": {},
+    
+    // xgettext config
+    "xgettext": {},
+    
+    // --- optional config
+    
+    // enable http basic auth
+    "httpAuth": {},
+    
+    // enable mysql based http auth
+    "mysql": {},
+
+    // if you want to enable the github integration
+    "github": {}
 }
 ````
