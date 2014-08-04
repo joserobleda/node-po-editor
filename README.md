@@ -7,10 +7,12 @@ A web app for edit .po files with github integration, writed in node
 1. Make sure you are running node `v0.10.29`
 2. Clone the repo
 3. npm install
-4. copy `neasy-sample.json` to a secure local path `/secure/path/to/config.json`
+4. Copy `neasy-sample.json` to a secure local path `/secure/path/to/config.json`
+5. Config your parameters in `/secure/path/to/config.json`
+5. Run `node app /secure/path/to/config.json`
+
 
 Config file, see `neasy-sample.json`
-
 
 ````
 {
@@ -148,6 +150,3 @@ Use this to enable github integration
     }
 }
 ````
-
-
-5. Run `node app /secure/path/to/config.json`
