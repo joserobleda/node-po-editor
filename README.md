@@ -47,3 +47,34 @@ Config file, see `neasy-sample.json`
     }
 }
 ````
+
+
+#### server
+````
+{
+    "server": {
+        // the domain where your app will be running
+        "domain": "localhost",
+        
+        // the port to access your app
+        "port": 5000
+    }
+}
+````
+
+#### server
+````
+{
+    "xgettext": {
+        // the path where you have your locale files (see locale estructure)
+        "path": "path/to/locale/root/locale",
+        
+        // array of paths to look for xgettext strings
+        "sources": [
+            "/tmp/cache",
+            "/src",
+            "/class"
+        ]
+    }
+}
+````
