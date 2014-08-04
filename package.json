@@ -11,7 +11,7 @@
     "gift": "~0.4.2"
   },
   "bin": {
-    "neasy": "bin/node-po-editor.js"
+    "node-po-editor": "bin/node-po-editor.js"
   },
   "devDependencies": {},
   "scripts": {
