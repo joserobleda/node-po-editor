@@ -7,7 +7,7 @@ A web app for edit .po files with github integration, writed in node
 1. Make sure you are running node `v0.10.29`
 2. Clone the repo
 3. npm install
-4. node app.js /path/to/config.json
+4. copy `neasy-sample.json` to a secure local path `/secure/path/to/config.json`
 
 Config file, see `neasy-sample.json`
 
