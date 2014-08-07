@@ -10,7 +10,7 @@ A web app for edit .po files with github integration, writed in node
 5. Run `po-editor /secure/path/to/config.json`
 
 
-Config file, see `neasy-sample.json`
+Config file example (or see [`sample.json`](https://github.com/joserobleda/node-po-editor/blob/master/neasy-sample.json))
 
 ````
 {
