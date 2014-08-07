@@ -69,6 +69,9 @@ Config file example (or see [`sample.json`](https://github.com/joserobleda/node-
         // the path where you have your locale files (see locale estructure)
         "path": "path/to/locale/root/locale",
         
+        // optional. a command to execute before parse the files
+        "pre": "php ~/www/dokify/dev-tools/twig/compile.php",
+        
         // array of paths to look for xgettext strings
         "sources": [
             "/tmp/cache",
