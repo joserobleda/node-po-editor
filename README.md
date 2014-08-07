@@ -70,7 +70,7 @@ Config file example (or see [`sample.json`](https://github.com/joserobleda/node-
         "path": "path/to/locale/root/locale",
         
         // optional. a command to execute before parse the files
-        "pre": "php ~/www/dokify/dev-tools/twig/compile.php",
+        "pre": "php compile/twig/templates.php",
         
         // array of paths to look for xgettext strings
         "sources": [
