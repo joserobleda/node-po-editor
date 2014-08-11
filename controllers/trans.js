@@ -1,4 +1,6 @@
 
+	var app			= require('neasy');
+	var cli 		= app.require('cli');
 	var Trans 		= require('../models/trans');
 	var languages 	= Trans.getLanguages();
 
@@ -187,7 +189,12 @@
 			});
 
 			function parse () {
-				trans.parse(function () {
+				trans.parse(function (err) {
+					if (err) {
+						cli.error(err);
+						return res.end(err);
+					}
+
 					return res.redirect('/' + req.params.lang + '/' + req.params.file);
 				});
 			};

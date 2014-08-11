@@ -68,8 +68,8 @@
 
             if (self.constructor.xgettext.pre) {
                 exec(self.constructor.xgettext.pre, function (err, stdout, stderr) {
-                    if (err) {
-                        return console.error(err);
+                    if (err || stderr) {
+                        return cb(err || stderr);
                     }
 
                     parse();
