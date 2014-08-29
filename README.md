@@ -10,7 +10,7 @@ A web app for edit .po files with github integration, writed in node
 5. Run `po-editor /secure/path/to/config.json`
 
 
-Config file, see `neasy-sample.json`
+Config file example (or see [`sample.json`](https://github.com/joserobleda/node-po-editor/blob/master/neasy-sample.json))
 
 ````
 {
@@ -68,6 +68,9 @@ Config file, see `neasy-sample.json`
     "xgettext": {
         // the path where you have your locale files (see locale estructure)
         "path": "path/to/locale/root/locale",
+        
+        // optional. a command to execute before parse the files
+        "pre": "php compile/twig/templates.php",
         
         // array of paths to look for xgettext strings
         "sources": [
