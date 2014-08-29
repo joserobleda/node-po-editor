@@ -41,6 +41,13 @@ define(function () {
         }
     };
 
+    String.prototype.trimWith = function (trim) {
+      trim = trim || '\s';
+
+      var regExp = new RegExp('^\\'+ trim +'+|'+ trim +'+$', 'gm');
+      return this.replace(regExp,'');
+    };
+
     function bindEvents (ctx) {
         ctx = ctx || document.body;
 
@@ -49,6 +56,11 @@ define(function () {
 
             var form = $(this);
             var data = form.serializeArray();
+
+            // clean starting and finish line breaks
+            $.each(data, function (i, input) {
+                input.value = input.value.trimWith('<br>');
+            });
 
             // update row
             $(App.active).find('div:last').html(data[0].value);
