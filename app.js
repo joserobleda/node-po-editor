@@ -8,6 +8,8 @@ updateNotifier({packageName: pkg.name, packageVersion: pkg.version}).notify();
 // arg as absolute route
 if (process.argv[2] !== undefined) {
 	process.argv[2] = path.resolve(process.argv[2]);
+} else {
+    return console.error('Set config.json path as first parameter');
 }
 
 // make sure we are in this folder to exec the app
