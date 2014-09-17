@@ -1,6 +1,6 @@
 {
   "name": "node-po-editor",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "A web based node written po file editor with HTML support",
   "main": "app.js",
   "dependencies": {
@@ -12,7 +12,8 @@
     "update-notifier": "~0.2.1"
   },
   "bin": {
-    "po-editor": "app.js"
+    "po-editor": "app.js",
+    "poeditor": "app.js"
   },
   "devDependencies": {},
   "scripts": {
