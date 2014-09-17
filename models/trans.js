@@ -54,6 +54,7 @@
                 params.push('--no-location');
                 params.push('--language=PHP');
                 params.push('--force-po');
+                params.push('--no-wrap');
                 params.push('--from-code=UTF-8');
                 params.push('-j ' + self.get('path'));
                 params.push('-o ' + self.get('path'));
