@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 var path = require('path');
-var updateNotifier = require('update-notifier');
-var pkg = require('./package.json');
 
-updateNotifier({packageName: pkg.name, packageVersion: pkg.version}).notify();
+// arg as absolute route
+if (process.argv[2] !== undefined) {
+	process.argv[2] = path.resolve(process.argv[2]);
+}
 
 // make sure we are in this folder to exec the app
 process.chdir(__dirname);
@@ -14,10 +15,7 @@ var fs = require('fs'),
 	cli	= app.require('cli'),
 	home = process.env.HOME;
 
-// arg as absolute route
-if (process.argv[2] !== undefined) {
-    process.argv[2] = path.resolve(process.argv[2]);
-}
+
 
 if (app.config.xgettext === undefined || app.config.xgettext.path === undefined) {
 	return cli.error("Configure the xgettext:path in your config.json file!");
