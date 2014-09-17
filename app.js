@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 var path = require('path');
+var updateNotifier = require('update-notifier');
+var pkg = require(__dirname + '/package.json');
+
+updateNotifier({packageName: pkg.name, packageVersion: pkg.version}).notify();
 
 // arg as absolute route
 if (process.argv[2] !== undefined) {
