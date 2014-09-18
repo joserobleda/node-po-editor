@@ -9,7 +9,8 @@
     "slugs": "^0.1.2",
     "github": "~0.2.1",
     "gift": "~0.4.2",
-    "update-notifier": "~0.2.1"
+    "update-notifier": "~0.2.1",
+    "service-manager": "~0.2.0"
   },
   "bin": {
     "po-editor": "app.js",
