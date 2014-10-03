@@ -42,28 +42,57 @@
             var self = this;
 
             function parse () {
-                var paths, find, xgettext, params, command;
+                var paths, find, xgettext, params, command, def;
 
                 paths   = self.constructor.xgettext.sources.join(' ');
                 find    = 'find ' + paths + ' -iname "*.php"';
+                def     = self.get('path') + '.def.po';
 
                 params  = [];
                 params.push('--sort-output');
-                params.push('--omit-header');
+                // params.push('--omit-header');
                 params.push('--add-comments=notes');
                 params.push('--no-location');
                 params.push('--language=PHP');
                 params.push('--force-po');
                 params.push('--no-wrap');
-                params.push('--from-code=UTF-8');
-                params.push('-j ' + self.get('path'));
-                params.push('-o ' + self.get('path'));
+                params.push('--from-code=utf-8');
+                // params.push('-j ' + self.get('path'));
+                params.push('-o ' + def);
                 xgettext = 'xgettext ' + params.join(' ');
 
                 command = find + ' | xargs ' + xgettext;
 
-                exec(command, function (err, stdout, stderr) {
-                    cb(err);
+                exec(command, {maxBuffer: 1000*1024}, function (err, stdout, stderr) {
+                    var tmp, merge, move, remove;
+
+                    tmp = self.get('path') + '.temporary';
+
+                    if (err) {
+                        return cb(err);
+                    }
+
+                    // merge both .po files
+                    command = 'msgmerge --no-wrap ' + self.get('path') + ' ' + def + ' > ' + tmp;
+                    exec(command, function (err, stdout, stderr) {
+                        if (err) {
+                            return cb(err);
+                        }
+
+                        // remove obsoletes...
+                        command = 'msgattrib --no-wrap --output-file=' + self.get('path') + ' --no-obsolete ' + tmp;
+                        exec(command, function (err, stdout, stderr) {
+                            if (err) {
+                                return cb(err);
+                            }
+
+                            // delete temporary file
+                            command = 'rm ' + def;
+                            exec(command, function (err, stdout, stderr) {
+                               cb(err);
+                            });
+                        });
+                    });
                 });
             }
 
