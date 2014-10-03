@@ -73,7 +73,7 @@
                     }
 
                     // merge both .po files
-                    command = 'msgmerge --no-wrap ' + self.get('path') + ' ' + def + ' > ' + tmp;
+                    command = 'msgmerge --no-wrap --no-fuzzy-matching ' + self.get('path') + ' ' + def + ' > ' + tmp;
                     exec(command, function (err, stdout, stderr) {
                         if (err) {
                             return cb(err);
@@ -89,7 +89,10 @@
                             // delete temporary file
                             command = 'rm ' + def + ' & rm ' + tmp;
                             exec(command, function (err, stdout, stderr) {
-                               cb(err);
+                                self.load(function() {
+                                    self.save();
+                                });
+                                cb(err);
                             });
                         });
                     });
@@ -161,6 +164,10 @@
 
             self    = this;
             cb      = cb || function () {};
+
+            if (this.po && this.po.headers && this.po.headers['POT-Creation-Date']) {
+                this.po.headers['POT-Creation-Date'] = '';
+            }
 
             this.po.save(this.get('path'), function (err) {
                 if (err) {
