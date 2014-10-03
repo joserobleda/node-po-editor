@@ -87,7 +87,7 @@
                             }
 
                             // delete temporary file
-                            command = 'rm ' + def;
+                            command = 'rm ' + def + ' & rm ' + tmp;
                             exec(command, function (err, stdout, stderr) {
                                cb(err);
                             });
