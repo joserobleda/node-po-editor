@@ -2,7 +2,6 @@
 	var app		= require('neasy');
 	var Model 	= require('neasy/model');
     var PO      = require('pofile');
-    var slugs   = require("slugs");
     var fs      = require("fs");
     var exec    = require('child_process').exec;
     var git     = require('gift');
@@ -127,7 +126,7 @@
                 self.po = po;
 
                 for (var i in self.po.items) {
-                    slug = slugs(self.po.items[i].msgid);
+                    slug = i;
 
                     // not saved (updated) by default
                     self.po.items[i].saved = false;

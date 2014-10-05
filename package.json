@@ -6,7 +6,6 @@
   "dependencies": {
     "neasy": "*",
     "pofile": "^0.2.12",
-    "slugs": "^0.1.2",
     "github": "~0.2.1",
     "gift": "~0.4.2",
     "update-notifier": "~0.2.1",
