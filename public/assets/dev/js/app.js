@@ -85,6 +85,13 @@ define(function () {
                 toolbar:      "editor-tools",
                 parserRules:  wysiHtml5ParserRules
             });
+
+            $(ctx).find('#copy-current').click(function () {
+                var text = $(".msgid").text();
+                editor.setValue(text);
+
+                return false;
+            });
         })
 
         // async autofocus
