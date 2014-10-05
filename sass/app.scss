@@ -19,6 +19,24 @@ ul {
     padding: 0
 }
 
+nav {
+    border-bottom: 1px solid #FFB600;
+    font-size: 12px;
+    box-shadow: 0px -10px 10px 6px #222;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: center;
+
+        li {
+            padding: 1em;
+            display: inline-block;
+        }
+    }
+}
+
 .empty {
     padding-top: 2em;
 

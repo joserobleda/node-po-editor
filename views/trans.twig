@@ -16,6 +16,12 @@
         <script src="/assets/dev/js/vendor/wysihtml5-0.3.0.js"></script>
     </head>
     <body>
+        <nav>
+            <ul>
+                <li><a href="/">Language list</a></li>
+                <li><a href="/{{ trans.language }}/{{ trans.file }}/reload">Re-Parse</a></li>
+            </ul>
+        </nav>
         {% if trans.strings.length %}
             <ul id="strings" class="layout centered">
                 {% for string in trans.strings %}
