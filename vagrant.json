@@ -1,0 +1,15 @@
+{
+    "cookie": {
+        "secret": "a-cookie-secret"
+    },
+    "server": {
+        "domain": "localhost",
+        "port": 8080
+    },
+    "xgettext": {
+        "path": "/vagrant/example/locale",
+        "sources": [
+            "/vagrant/example/"
+        ]
+    }
+}
