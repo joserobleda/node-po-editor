@@ -29,3 +29,5 @@ node_modules
 sublime/node-po-editor.sublime-project
 
 local-neasy.json
+
+.vagrant
