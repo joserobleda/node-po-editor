@@ -41,57 +41,63 @@
             var self = this;
 
             function parse () {
-                var paths, find, xgettext, params, command, def;
+                var paths, fileList, find, xgettext, params, command, def;
 
-                paths   = self.constructor.xgettext.sources.join(' ');
-                find    = 'find ' + paths + ' -iname "*.php"';
-                def     = self.get('path') + '.def.po';
+                fileList    = '/tmp/po-editor-file-list.txt';
+                paths       = self.constructor.xgettext.sources.join(' ');
+                find        = 'find ' + paths + ' -iname "*.php"';
 
-                params  = [];
-                params.push('--sort-output');
-                // params.push('--omit-header');
-                params.push('--add-comments=notes');
-                params.push('--no-location');
-                params.push('--language=PHP');
-                params.push('--force-po');
-                params.push('--no-wrap');
-                params.push('--from-code=utf-8');
-                // params.push('-j ' + self.get('path'));
-                params.push('-o ' + def);
-                xgettext = 'xgettext ' + params.join(' ');
+                command = find + ' > ' + fileList;
 
-                command = find + ' | xargs ' + xgettext;
+                exec(command, function (err, stdout, stderr) {
 
-                exec(command, {maxBuffer: 1000*1024}, function (err, stdout, stderr) {
-                    var tmp, merge, move, remove;
+                    def     = self.get('path') + '.def.po';
 
-                    tmp = self.get('path') + '.temporary';
+                    params  = [];
+                    params.push('--files-from=' + fileList);
+                    params.push('--sort-output');
+                    // params.push('--omit-header');
+                    params.push('--add-comments=notes');
+                    params.push('--no-location');
+                    params.push('--language=PHP');
+                    params.push('--force-po');
+                    params.push('--no-wrap');
+                    params.push('--from-code=utf-8');
+                    // params.push('-j ' + self.get('path'));
+                    params.push('-o ' + def);
+                    xgettext = 'xgettext ' + params.join(' ');
 
-                    if (err) {
-                        return cb(err);
-                    }
+                    exec(xgettext, {maxBuffer: 1000*1024}, function (err, stdout, stderr) {
+                        var tmp, merge, move, remove;
 
-                    // merge both .po files
-                    command = 'msgmerge --no-wrap --no-fuzzy-matching ' + self.get('path') + ' ' + def + ' > ' + tmp;
-                    exec(command, function (err, stdout, stderr) {
+                        tmp = self.get('path') + '.temporary';
+
                         if (err) {
                             return cb(err);
                         }
 
-                        // remove obsoletes...
-                        command = 'msgattrib --no-wrap --output-file=' + self.get('path') + ' --no-obsolete ' + tmp;
+                        // merge both .po files
+                        command = 'msgmerge --no-wrap --no-fuzzy-matching ' + self.get('path') + ' ' + def + ' > ' + tmp;
                         exec(command, function (err, stdout, stderr) {
                             if (err) {
                                 return cb(err);
                             }
 
-                            // delete temporary file
-                            command = 'rm ' + def + ' & rm ' + tmp;
+                            // remove obsoletes...
+                            command = 'msgattrib --no-wrap --output-file=' + self.get('path') + ' --no-obsolete ' + tmp;
                             exec(command, function (err, stdout, stderr) {
-                                self.load(function() {
-                                    self.save();
+                                if (err) {
+                                    return cb(err);
+                                }
+
+                                // delete temporary file
+                                command = 'rm ' + def + ' & rm ' + tmp;
+                                exec(command, function (err, stdout, stderr) {
+                                    self.load(function() {
+                                        self.save();
+                                    });
+                                    cb(err);
                                 });
-                                cb(err);
                             });
                         });
                     });
