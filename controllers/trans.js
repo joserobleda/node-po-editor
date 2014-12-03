@@ -192,7 +192,7 @@
 				trans.parse(function (err) {
 					if (err) {
 						cli.error(err);
-						return res.end(err);
+						return res.status(500).end('Error: ' + err);
 					}
 
 					return res.redirect('/' + req.params.lang + '/' + req.params.file);

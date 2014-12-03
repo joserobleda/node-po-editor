@@ -6,6 +6,7 @@ var fs      = require("fs");
 var exec    = require('child_process').exec;
 var git     = require('gift');
 var q       = require('q');
+var cli     = require('cli');
 var pullRequest = require('../lib/pullrequest');
 
 var Trans = Model.extend({
@@ -42,71 +43,136 @@ var Trans = Model.extend({
     parse: function (cb) {
         var self = this;
 
-        function parse () {
-            var paths, fileList, find, xgettext, params, command, def;
+        function getFileList()
+        {
+            var defer, fileList, paths, find;
 
-            fileList    = '/tmp/po-editor-file-list.txt';
-            paths       = self.constructor.xgettext.sources.join(' ');
-            find        = 'find ' + paths + ' -iname "*.php"';
+            defer    = q.defer();
+            fileList = '/tmp/po-editor-file-list.txt';
+            paths    = self.constructor.xgettext.sources.join(' ');
+            find     = 'find ' + paths + ' -iname "*.php"';
+            command  = find + ' > ' + fileList;
 
-            command = find + ' > ' + fileList;
-
+            cli.info('Reading file list of ' + paths);
             exec(command, function (err, stdout, stderr) {
+                if (err) {
+                    return defer.reject(err);
+                }
 
-                def     = self.get('path') + '.def.po';
+                return defer.resolve(fileList);
+            });
 
-                params  = [];
-                params.push('--files-from=' + fileList);
-                params.push('--sort-output');
-                // params.push('--omit-header');
-                params.push('--add-comments=notes');
-                params.push('--no-location');
-                params.push('--language=PHP');
-                params.push('--force-po');
-                params.push('--no-wrap');
-                params.push('--from-code=utf-8');
-                // params.push('-j ' + self.get('path'));
-                params.push('-o ' + def);
-                xgettext = 'xgettext ' + params.join(' ');
+            return defer.promise;
+        }
 
-                exec(xgettext, {maxBuffer: 1000*1024}, function (err, stdout, stderr) {
-                    var tmp, merge, move, remove;
+        function getTexts(fileList)
+        {
+            var defer, command, params, definitions;
 
-                    tmp = self.get('path') + '.temporary';
+            definitions = self.get('path') + '.def.po';
+            defer       = q.defer();
 
+            params  = [];
+            params.push('--files-from=' + fileList);
+            params.push('--sort-output');
+            params.push('--add-comments=notes');
+            params.push('--no-location');
+            params.push('--language=PHP');
+            params.push('--force-po');
+            params.push('--no-wrap');
+            params.push('--from-code=utf-8');
+            params.push('-o ' + definitions);
+
+            command = 'xgettext ' + params.join(' ');
+
+            cli.info('Extract texts from ' + fileList);
+            exec(command, {maxBuffer: 1000*1024}, function (err, stdout, stderr) {
+                if (err) {
+                    return defer.reject(err);
+                }
+
+                return defer.resolve(definitions);
+            });
+
+            return defer.promise;
+        }
+
+        function mergeMessages(definitions)
+        {
+            var defer, tmp, command;
+
+            defer       = q.defer();
+            temporary   = self.get('path') + '.temporary';
+
+            command = 'msgmerge --no-wrap --no-fuzzy-matching ' + self.get('path') + ' ' + definitions + ' > ' + temporary;
+            cli.info('Merge messages ' + definitions);
+            exec(command, function (err, stdout, stderr) {
+                if (err) {
+                    return defer.reject(err);
+                }
+
+                exec('rm ' + definitions, function (err, stdout, stderr) {
                     if (err) {
-                        return cb(err);
+                        return defer.reject(err);
                     }
 
-                    // merge both .po files
-                    command = 'msgmerge --no-wrap --no-fuzzy-matching ' + self.get('path') + ' ' + def + ' > ' + tmp;
-                    exec(command, function (err, stdout, stderr) {
-                        if (err) {
-                            return cb(err);
-                        }
-
-                        // remove obsoletes...
-                        command = 'msgattrib --no-wrap --output-file=' + self.get('path') + ' --no-obsolete ' + tmp;
-                        exec(command, function (err, stdout, stderr) {
-                            if (err) {
-                                return cb(err);
-                            }
-
-                            // delete temporary file
-                            command = 'rm ' + def + ' & rm ' + tmp;
-                            exec(command, function (err, stdout, stderr) {
-                                self.load(function() {
-                                    self.save();
-                                });
-                                cb(err);
-                            });
-                        });
-                    });
+                    return defer.resolve(temporary);
                 });
+            });
+
+            return defer.promise;
+        }
+
+        function removeObsoletes(temporary)
+        {
+            var defer, command;
+
+            defer   = q.defer();
+            command = 'msgattrib --no-wrap --output-file=' + self.get('path') + ' --no-obsolete ' + temporary;
+            cli.info('Removing obsoletes...');
+            exec(command, function (err, stdout, stderr) {
+                if (err) {
+                    return defer.reject(err);
+                }
+
+                exec('rm ' + temporary, function (err, stdout, stderr) {
+                    if (err) {
+                        return defer.reject(err);
+                    }
+
+                    return defer.resolve();
+                });
+            });
+
+            return defer.promise;
+        }
+
+
+        function parse () {
+            var xgettext, params, command, def;
+
+            getFileList().then(function (fileList) {
+                return getTexts(fileList);
+            }).then(function (definitions) {
+                return mergeMessages(definitions);
+            }).then(function (temporary) {
+                return removeObsoletes(temporary);
+            }).then(function () {
+
+                cli.ok('Reparse ok!');
+                self.load(function() {
+                    self.save();
+                });
+
+                cb();
+            // if something fails...
+            }).catch(function (err) {
+                cb(err || new Error());
             });
         }
 
         if (self.constructor.xgettext.pre) {
+            cli.info('Procesing pre "' + self.constructor.xgettext.pre + '"');
             exec(self.constructor.xgettext.pre, function (err, stdout, stderr) {
                 if (err || stderr) {
                     return cb(err || stderr);
