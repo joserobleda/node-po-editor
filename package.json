@@ -1,6 +1,6 @@
 {
   "name": "node-po-editor",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "A web based node written po file editor with HTML support",
   "main": "app.js",
   "dependencies": {
