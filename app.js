@@ -6,16 +6,18 @@ process.chdir(__dirname);
 var path 		= require('path');
 var home 		= process.env.HOME;
 var fs 			= require('fs');
-var env 		= path.resolve(home + '/.po-editor.json');
+var env 		= path.resolve(home + '/.poeditor.json');
 
 if (fs.existsSync(env)) {
 	process.argv[2] = env;
 }
 
-var notifier 	= require('update-notifier');
 var pkg 		= require(__dirname + '/package.json');
 var app 		= require('neasy');
 var cli			= app.require('cli');
+
+// use the pkg info
+app.pkg = pkg;
 
 // arg as absolute route
 if (process.argv[2] === undefined) {

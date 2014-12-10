@@ -16,7 +16,8 @@
 			Trans.getStatus(function (err, status) {
 				res.render('index.twig', {
 					languages: languages,
-					status: status
+					status: status,
+					version: app.pkg.version
 				});
 			})
 		},
