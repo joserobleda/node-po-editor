@@ -4,15 +4,18 @@
 process.chdir(__dirname);
 
 var path 		= require('path');
+var home 		= process.env.HOME;
+var fs 			= require('fs');
+var env 		= path.resolve(home + '/.po-editor.json');
+
+if (fs.existsSync(env)) {
+	process.argv[2] = env;
+}
+
 var notifier 	= require('update-notifier');
 var pkg 		= require(__dirname + '/package.json');
-var fs 			= require('fs');
 var app 		= require('neasy');
 var cli			= app.require('cli');
-var Service 	= require('service-manager').Service;
-var home 		= process.env.HOME;
-
-notifier({packageName: pkg.name, packageVersion: pkg.version}).notify();
 
 // arg as absolute route
 if (process.argv[2] === undefined) {
@@ -42,38 +45,6 @@ for (var i in app.config.xgettext.sources) {
 
 if (app.config.xgettext.pre !== undefined) {
 	app.config.xgettext.pre = app.config.xgettext.pre.replace('~', home);
-}
-
-cli.parse({
-	install: ['install', 'Install service'],
-	uninstall: ['uninstall', 'Uninstall service']
-});
-
-var service = new Service({
-	name: "poeditor",
-	displayname: "Node Po Editor",
-	description: pkg.description,
-	run: "node",
-	args: [__dirname + "/app.js", process.argv[2]], // sets file arguments
-	output: true, // sets wheter log to console
-	log: false // sets wheter linux services should log stdout and stderr
-});
-
-switch (cli.command) {
-	case 'install':
-		service.install(function(isInstalled) {
-			console.log(isInstalled);
-		});
-
-		return;
-	break
-	case 'uninstall':
-		service.uninstall(function(isUninstalled) {
-			console.log(isInstalled);
-		});
-
-		return;
-	break
 }
 
 app.start();
