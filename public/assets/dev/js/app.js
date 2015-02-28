@@ -1,6 +1,6 @@
 define(function () {
-	'use strict';
-	
+    'use strict';
+
     // if some lib require jquery, make sure is from the same source we had in our html
     require.config({
         paths: {
@@ -92,11 +92,11 @@ define(function () {
 
                 return false;
             });
-        })
+        });
 
         // async autofocus
         $(ctx).find('[autofocus]').focus();
-    };
+    }
 
 
     /***
@@ -105,7 +105,7 @@ define(function () {
        *
        */
     function setAsActive (dom) {
-        $('.active').removeClass('active')
+        $('.active').removeClass('active');
         dom.addClass('active');
 
         App.active = dom;
@@ -147,7 +147,7 @@ define(function () {
         var hash, id, dom;
 
         id      = location.hash;
-        hash    = location.hash.replace('#', '')
+        hash    = location.hash.replace('#', '');
 
         if (location.hash.length == 1) {
             return false;
@@ -157,7 +157,7 @@ define(function () {
         if (dom.length) {
             pick(dom);
         }
-    };
+    }
 
     // detect hash changes
     window.onhashchange = pickFromHash;
@@ -177,12 +177,12 @@ define(function () {
     strings.on('click', 'li', function (e) {
         e.preventDefault();
         location.hash = $(this).attr('id');
-    })
+    });
 
     // keys based on this selector
     require(['keys'], function (Keys) {
         Keys.init('ul#strings li');
     });
-   
+
     return App;
 });
