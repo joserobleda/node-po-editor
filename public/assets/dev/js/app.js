@@ -87,7 +87,7 @@ define(function () {
             });
 
             $(ctx).find('#copy-current').click(function () {
-                var text = $(".msgid").text();
+                var text = $(".msgid").html();
                 editor.setValue(text);
 
                 return false;
