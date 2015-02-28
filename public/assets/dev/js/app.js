@@ -16,30 +16,30 @@ define(function () {
         active: null
     };
 
-    var wysiHtml5ParserRules = {
-        tags: {
-            strong: {},
-            b:      {},
-            i:      {},
-            em:     {},
-            br:     {},
-            p:      {},
-            div:    {},
-            span:   {},
-            ul:     {},
-            ol:     {},
-            li:     {},
-            a:      {
-                set_attributes: {
-                    target: "_blank",
-                    rel:    "nofollow"
-                },
-                check_attributes: {
-                    href:   "url" // important to avoid XSS
-                }
-            }
-        }
-    };
+    // var wysiHtml5ParserRules = {
+    //     tags: {
+    //         strong: {},
+    //         b:      {},
+    //         i:      {},
+    //         em:     {},
+    //         br:     {},
+    //         p:      {},
+    //         div:    {},
+    //         span:   {},
+    //         ul:     {},
+    //         ol:     {},
+    //         li:     {},
+    //         a:      {
+    //             set_attributes: {
+    //                 target: "_blank",
+    //                 rel:    "nofollow"
+    //             },
+    //             check_attributes: {
+    //                 href:   "url" // important to avoid XSS
+    //             }
+    //         }
+    //     }
+    // };
 
     String.prototype.trimWith = function (trim) {
       trim = trim || '\s';
@@ -83,7 +83,7 @@ define(function () {
         $(ctx).find('textarea').each(function () {
             var editor = new wysihtml5.Editor(this, {
                 toolbar:      "editor-tools",
-                parserRules:  wysiHtml5ParserRules
+                parserRules:  wysihtml5ParserRules
             });
 
             $(ctx).find('#copy-current').click(function () {
