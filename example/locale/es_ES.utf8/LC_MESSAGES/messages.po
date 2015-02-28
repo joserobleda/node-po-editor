@@ -17,3 +17,6 @@ msgstr ""
 
 msgid "This is a string, isn't it?"
 msgstr ""
+
+msgid "This is a <strong>strong</strong> tag"
+msgstr ""
