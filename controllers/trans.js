@@ -83,7 +83,8 @@
 				var filter;
 
 				if (err) {
-					return 'Error: ' + err;
+					cli.error('Error loading file ' + err);
+					return res.end('Unknow error');
 				}
 
 				if (req.query.all) {
